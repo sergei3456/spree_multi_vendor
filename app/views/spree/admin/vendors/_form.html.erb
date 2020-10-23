@@ -1,0 +1,99 @@
+<%= render partial: 'spree/shared/error_messages', locals: {target: @vendor} %>
+<div class="form-group">
+  <%= f.field_container :name do %>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :about_us do %>
+    <%= f.label :about_us %>
+    <%= f.text_area :about_us, rows: "10", class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :contact_us do %>
+    <%= f.label :contact_us %>
+    <%= f.text_area :contact_us, rows: "10", class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :facebook do %>
+    <%= f.label :facebook %>
+    <%= f.text_field :facebook, class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :vk do %>
+    <%= f.label :vk %>
+    <%= f.text_field :vk, class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :twitter do %>
+    <%= f.label :twitter %>
+    <%= f.text_field :twitter, class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :instagram do %>
+    <%= f.label :instagram %>
+    <%= f.text_field :instagram, class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :inn do %>
+    <%= f.label :inn %>
+    <%= f.text_field :inn, class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :phone do %>
+    <%= f.label :phone %>
+    <%= f.text_field :phone, class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :state do %>
+    <%= f.label :state %>
+    <%= f.select :state,
+                 options_for_select(Spree::Vendor.state_machines[:state].states.collect { |s| [Spree.t("vendor_states.#{s.name}"), s.value] }, selected: @vendor.state),
+                 {}, class: 'select2', required: :required %>
+  <% end %>
+</div>
+<div class="form-group mt-4">
+  <div class="custom-file">
+    <%= f.file_field :logo, :class => 'custom-file-input' %>
+    <label class="custom-file-label">Логотип(200x200)</label>
+  </div>
+  <%= f.error_message_on :logo %>
+</div>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <%= image_tag main_app.url_for(@vendor.logo.url(:small)) if @vendor.logo %>
+  </div>
+</div>
+<div class="form-group mt-4">
+  <div class="custom-file">
+    <%= f.file_field :image, :class => 'custom-file-input' %>
+    <label class="custom-file-label">Баннер(1920x350)</label>
+  </div>
+  <%= f.error_message_on :image %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= image_tag main_app.url_for(@vendor.image.url(:large)), class: 'img-responsive' if @vendor.image %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.field_container :commission_rate do %>
+    <%= f.label :commission_rate %>
+    <%= f.number_field :commission_rate, step: '0.01', class: 'form-control' %>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.field_container :notification_email do %>
+    <%= f.label :notification_email %>
+    <%= f.email_field :notification_email, class: 'form-control' %>
+  <% end %>
+</div>

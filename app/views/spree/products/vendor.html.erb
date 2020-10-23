@@ -1,0 +1,130 @@
+<div class="vendor-cover">
+  <div class="vendor-image" style="background-image: url(<%= main_app.url_for(@vendor.image.attachment.variant(resize_to_fill: [1920, 350])) %>)">
+    <img src="<%= main_app.url_for(@vendor.image.attachment.variant(resize_to_fill: [1920, 350])) %>" alt="" class="bg-img lazyload blur-up" style="display: none;">
+  </div>
+</div>
+<section class="vendor-profile pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="profile-left">
+          <div class="profile-image">
+            <div>
+              <%= lazy_image(
+                      src: main_app.url_for(@vendor.logo.url(:small)),
+                      alt: @vendor.name,
+                      width: 100,
+                      height: 100
+                  ) %>
+              <h6><%= @vendor.name %></h6>
+              <% if @vendor.rating.to_i > 0 %>
+                <div class="profile-rating">
+                  <% (1..5).each do |item| %>
+                    <% if @vendor.rating >= item %>
+                      <i class="ion-ios-star"></i>
+                    <% end %>
+                  <% end %>
+                </div>
+                <h6>
+                  <%= @vendor.rating %> | <%= "#{@vendor.rating_count} #{I18n.t('spree/vendor.review', count: @vendor.rating_count)}" %>
+                </h6>
+              <% else %>
+                Нет рейтинга
+              <% end %>
+            </div>
+          </div>
+          <div class="profile-detail">
+            <div>
+              <%= @vendor.about_us %>
+            </div>
+          </div>
+          <div class="profile-contact">
+            <div class="text-center">
+              <% if @vendor.facebook.present? || @vendor.vk.present? || @vendor.twitter.present? || @vendor.instagram.present? %>
+                <h6>Соц сети:</h6>
+                <div class="footer-social social_icons">
+                  <ul>
+                    <% if @vendor.facebook.present? %>
+                      <li>
+                        <a href="<%= @vendor.facebook %>" rel="nofollow noopener noreferrer" target="_blank">
+                          <i class="ion-social-facebook" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                    <% end %>
+                    <% if @vendor.vk.present? %>
+                      <li>
+                        <a href="<%= @vendor.vk %>" rel="nofollow noopener noreferrer" target="_blank">
+                          <i class="ion-social-vimeo" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                    <% end %>
+                    <% if @vendor.twitter.present? %>
+                      <li>
+                        <a href="<%= @vendor.twitter %>" rel="nofollow noopener noreferrer" target="_blank">
+                          <i class="ion-social-twitter" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                    <% end %>
+                    <% if @vendor.instagram.present? %>
+                      <li>
+                        <a href="<%= @vendor.instagram %>" rel="nofollow noopener noreferrer" target="_blank">
+                          <i class="ion-social-instagram-outline" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <% if @vendor.phone.present? %>
+                <h6>Если у вас есть вопрос:</h6>
+                <a href="tel:<%= @vendor.phone %>" class="btn btn-fill-out btn-sm">Связаться с продавцом</a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <% if @vendor.present? and @vendor.state == 'active' %>
+        <div class="mt-5">
+          <div class="row shop_container grid">
+            <% cache cache_key_for_products(@products) do %>
+              <% @products.each_with_index do |product, index| %>
+                <div id="product_<%= product.id %>" class="col-sm-4 col-6 mb-3 mb-md-4 pr-sm-0 pr-md-0 pl-md-4 pl-sm-4 <%= index & 1 == 0 ? 'pl-0 pr-2' : 'pr-0 pl-2' %>">
+                  <%= render 'spree/shared/product', product: product, image_class: 'product-component-plp-image' %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <% if @products.respond_to?(:total_pages) %>
+            <div class="row pl-md-4 pl-sm-4">
+              <div class="col-12">
+                <div class="plp-pagination d-none d-lg-block">
+                  <%= paginate @products, window: 2, theme: 'twitter-bootstrap-4' %>
+                </div>
+                <div class="plp-pagination d-lg-none">
+                  <%= paginate @products, window: 1, theme: 'twitter-bootstrap-4' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="mb-2">
+          <h3>
+            Контакты
+          </h3>
+          <%= @vendor.contact_us %>
+        </div>
+      <% else %>
+        <h3>
+          К сожалению продавец временно неактивен.
+        </h3>
+      <% end %>
+    </div>
+  </div>
+</div>

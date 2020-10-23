@@ -1,0 +1,39 @@
+ru:
+  activerecord:
+    models:
+      spree/vendor:
+        one: Продавец
+        other: Продавецы
+    attributes:
+      spree/vendor:
+        about_us: О компании
+        contact_us: Контакты
+        image: Фото
+        name: Название
+        state: Сосотояние
+        created_at: Дата создания
+        priority: Приоритет
+  spree/vendor:
+    review:
+      many: "Отзывов"
+      one: "Отзыв"
+      other: "Отзывы"
+  spree:
+    back_to_vendors_list: Вернуться в список
+    blocked: Заблокирован
+    edit_vendor: Редактировать
+    new_vendor: Новый продавец
+    only_alphanumeric_chars: should contain only letters and digits
+    order_mailer:
+      vendor_notification_email:
+        dear_vendor: Dear Vendor,
+        subject: Уведомление
+        thanks: Спасибо
+    vendor: Магазин
+    vendor_name: Название магазина
+    vendor_states:
+      active: Активен
+      blocked: Заблокирован
+      pending: Ожидает
+    admin:
+      commission: Комиссия
